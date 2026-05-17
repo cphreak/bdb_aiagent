@@ -25,14 +25,16 @@ def get_files_info(working_directory, directory="."):
         target_dir = os.path.normpath(os.path.join(absolute_dir, directory))
         # Will be True or False
         if os.path.commonpath([absolute_dir, target_dir]) != absolute_dir:
-            raise RuntimeError(f'Cannot list "{target_dir}" as it is outside the permitted working directory')
+            raise RuntimeError(f'Cannot list "{directory}" as it is outside the permitted working directory')
             
         if (os.path.isdir(target_dir) == False):
             raise RuntimeError(f'"{directory}" is not a directory')
             
         results = ""
         for f in os.scandir(target_dir):
-            results += (f'-{f.name}: file_size={f.stat().st_size} bytes, is_dir={f.is_dir()}  ')
+            # print(f)
+            results += (f'- {f.name}: file_size={f.stat().st_size} bytes, is_dir={f.is_dir()}  ')
+            # print(results)
         return results
 
     except Exception as e:
